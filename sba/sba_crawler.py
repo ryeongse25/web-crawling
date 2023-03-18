@@ -7,13 +7,13 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-driver = webdriver.Chrome(executable_path = os.environ.get('DRIVER_PATH'))
+driver = webdriver.Chrome(executable_path = os.environ['DRIVER_PATH'])
 
-bot_token = os.environ.get('BOT_TOKEN')
+bot_token = os.environ['BOT_TOKEN']
 bot = telepot.Bot(bot_token)
 
 # chat_id = bot.getUpdates()[-1]['message']['chat']['id']
-chat_id = os.environ.get('CHAT_ID')
+chat_id = os.environ['CHAT_ID']
 
 CONTENT_LINK = 'https://www.sba.seoul.kr/Pages/ContentsMenu/Company_Support_Detail.aspx?RID='
 
