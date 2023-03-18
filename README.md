@@ -1,2 +1,2 @@
 # web-crawling
-web crawling using Pyhton
+web crawling using Python
