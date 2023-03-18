@@ -5,7 +5,7 @@ import telepot
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv('../.env')
 
 driver = webdriver.Chrome(executable_path = os.environ['DRIVER_PATH'])
 
