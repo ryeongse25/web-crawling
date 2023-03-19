@@ -53,7 +53,6 @@ def main():
     # 파일 쓰기
     with open('sba.txt', 'a') as f:
         for i in range(1, last_page + 1):
-            string = ''
             driver.execute_script(f"javascript:pageMove({i})")
             time.sleep(2)
 
