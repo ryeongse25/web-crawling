@@ -1,5 +1,6 @@
 import time
 import telepot
+import os
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
@@ -7,6 +8,9 @@ from selenium.webdriver.common.by import By
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(BASE_DIR, 'mss.txt')
 
 f = open('/home/ubuntu/crawling/token.txt', mode='rt', encoding='utf-8')
 bot_token = f.read().splitlines()[0]
@@ -22,7 +26,7 @@ def readFile():
     old_set = set()
 
     try:
-        with open('mss.txt', 'r') as f:
+        with open(file_path, 'r') as f:
             old_set = set(f.read().splitlines())
     except FileNotFoundError:
         pass
@@ -47,7 +51,7 @@ def main():
 
     old_set = readFile()
 
-    with open('mss.txt', 'a') as f:
+    with open(file_path, 'a') as f:
 
         for i in range(1, last_page + 1):
             driver.execute_script(f"javascript:doBbsFPag({i})")

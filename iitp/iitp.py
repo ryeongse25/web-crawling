@@ -4,10 +4,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
+import os
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(BASE_DIR, 'iitp.txt')
 
 f = open('/home/ubuntu/crawling/token.txt', mode='rt', encoding='utf-8')
 bot_token = f.read().splitlines()[0]
@@ -27,7 +31,7 @@ def readFile():
     old_set = set()
 
     try:
-        with open('iitp.txt', 'r') as f:
+        with open(file_path, 'r') as f:
             old_set = set(f.read().splitlines())
     except FileNotFoundError:
         pass
@@ -58,7 +62,7 @@ def main():
     old_set = readFile()
 
     # 파일 쓰기
-    with open('iitp.txt', 'a') as f:
+    with open(file_path, 'a') as f:
 
         for i in range(0, last_page + 1):
 

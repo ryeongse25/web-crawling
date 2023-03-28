@@ -3,10 +3,14 @@ from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import time
 import telepot
+import os
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 driver = webdriver.Chrome(options=chrome_options)
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+file_path = os.path.join(BASE_DIR, 'sba.txt')
 
 f = open('/home/ubuntu/crawling/token.txt', mode='rt', encoding='utf-8')
 bot_token = f.read().splitlines()[0]
@@ -42,14 +46,14 @@ def main():
 
     # 파일 읽기
     try:
-        with open('sba.txt', 'r') as f:
+        with open(file_path, 'r') as f:
             old_sba = set(f.read().splitlines())
     except FileNotFoundError:
         pass
     
 
     # 파일 쓰기
-    with open('sba.txt', 'a') as f:
+    with open(file_path, 'a') as f:
         for i in range(1, last_page + 1):
             driver.execute_script(f"javascript:pageMove({i})")
             time.sleep(2)
