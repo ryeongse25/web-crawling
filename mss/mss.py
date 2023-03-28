@@ -1,17 +1,17 @@
 import time
 import telepot
-import os
-from dotenv import load_dotenv
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-load_dotenv('../.env')
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+driver = webdriver.Chrome(options=chrome_options)
 
-driver = webdriver.Chrome(executable_path = os.environ['DRIVER_PATH'])
-
-bot_token = os.environ['BOT_TOKEN']
+f = open('/home/ubuntu/crawling/token.txt', mode='rt', encoding='utf-8')
+bot_token = f.read().splitlines()[0]
 bot = telepot.Bot(bot_token)
-chat_id = os.environ['CHAT_ID']
+chat_id = '-1001835326415'
 
 def getLastPage(btn):
     last_page_tag = btn.get_attribute('onclick')
@@ -43,7 +43,7 @@ def main():
     driver.get(url)
 
     last_page_btn = driver.find_element(By.CSS_SELECTOR, '.paging .last')
-    last_page = getLastPage(last_page_btn)
+    last_page = 3
 
     old_set = readFile()
 

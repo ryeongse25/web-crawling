@@ -1,19 +1,17 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from bs4 import BeautifulSoup
 import time
 import telepot
-import os
-from dotenv import load_dotenv
 
-load_dotenv('../.env')
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+driver = webdriver.Chrome(options=chrome_options)
 
-driver = webdriver.Chrome(executable_path = os.environ['DRIVER_PATH'])
-
-bot_token = os.environ['BOT_TOKEN']
+f = open('/home/ubuntu/crawling/token.txt', mode='rt', encoding='utf-8')
+bot_token = f.read().splitlines()[0]
 bot = telepot.Bot(bot_token)
-
-# chat_id = bot.getUpdates()[-1]['message']['chat']['id']
-chat_id = os.environ['CHAT_ID']
+chat_id = '-1001835326415'
 
 CONTENT_LINK = 'https://www.sba.seoul.kr/Pages/ContentsMenu/Company_Support_Detail.aspx?RID='
 
@@ -38,7 +36,7 @@ def main():
     driver.get(url)
     time.sleep(2)
 
-    last_page = getLastPage(BeautifulSoup(driver.page_source, 'html.parser'))
+    last_page = 3
 
     old_sba = set()
 

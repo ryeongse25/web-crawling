@@ -1,19 +1,18 @@
 import time
 import telepot
-import os
-from dotenv import load_dotenv
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 
-load_dotenv('../.env')
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+driver = webdriver.Chrome(options=chrome_options)
 
-driver = webdriver.Chrome(executable_path = os.environ['DRIVER_PATH'])
-
-# telegram
-bot_token = os.environ['BOT_TOKEN']
+f = open('/home/ubuntu/crawling/token.txt', mode='rt', encoding='utf-8')
+bot_token = f.read().splitlines()[0]
 bot = telepot.Bot(bot_token)
-chat_id = os.environ['CHAT_ID']
+chat_id = '-1001835326415'
 
 URL_1 = 'https://www.iitp.kr/kr/1/business/businessApiList.it?pageIndex='
 URL_2 = '&pageSize=10&searchText=&searchField=all'
@@ -54,7 +53,7 @@ def main():
 
     last_page_btn = driver.find_element(By.CSS_SELECTOR, '.pagination .next_end')
     link = last_page_btn.get_attribute('href')
-    last_page = getLastPage(link) + 1
+    last_page = 3
 
     old_set = readFile()
 
